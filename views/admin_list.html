@@ -3,6 +3,30 @@
 <p><a href="/comments/admin">&laquo; {"All conversations"}</a></p>
 
 <p>
+{% if status == 0 %}
+	<strong>{{comments_filter_status (0)}}</strong>
+	|
+	<a href="/comments/admin/list?identifier={{identifier|urlencode}}&status=1">{{comments_filter_status (1)}}</a>
+	|
+	<a href="/comments/admin/list?identifier={{identifier|urlencode}}&status=2">{{comments_filter_status (2)}}</a>
+
+{% elseif status == 1 %}
+	<a href="/comments/admin/list?identifier={{identifier|urlencode}}&status=0">{{comments_filter_status (0)}}</a>
+	|
+	<strong>{{comments_filter_status (1)}}</strong>
+	|
+	<a href="/comments/admin/list?identifier={{identifier|urlencode}}&status=2">{{comments_filter_status (2)}}</a>
+
+{% else %}
+	<a href="/comments/admin/list?identifier={{identifier|urlencode}}&status=0">{{comments_filter_status (0)}}</a>
+	|
+	<a href="/comments/admin/list?identifier={{identifier|urlencode}}&status=1">{{comments_filter_status (1)}}</a>
+	|
+	<strong>{{comments_filter_status (2)}}</strong>
+{% end %}
+</p>
+
+<p>
 <table width="100%">
 	<tr>
 		<th width="20%">{"User"}</th>
@@ -15,7 +39,17 @@
 		<td valign="top">{{ loop_value->name }}</td>
 		<td valign="top">{{ loop_value->ts|I18n::short_date_time }}</td>
 		<td valign="top">{{ loop_value->comment }}</td>
-		<td valign="top" style="text-align: right">&nbsp;</td>
+		<td valign="top" style="text-align: right">
+{% if status == 0 %}
+			<a href="/comments/admin/moderate?id={{ loop_value->id }}&status=1&redirect={{$_SERVER.REQUEST_URI|urlencode}}">{"Approve"}</a>
+			|
+			<a href="/comments/admin/moderate?id={{ loop_value->id }}&status=2&redirect={{$_SERVER.REQUEST_URI|urlencode}}">{"Reject"}</a>
+{% elseif status == 1 %}
+			<a href="/comments/admin/moderate?id={{ loop_value->id }}&status=2&redirect={{$_SERVER.REQUEST_URI|urlencode}}">{"Reject"}</a>
+{% else %}
+			<a href="/comments/admin/moderate?id={{ loop_value->id }}&status=1&redirect={{$_SERVER.REQUEST_URI|urlencode}}">{"Approve"}</a>
+{% end %}
+		</td>
 	</tr>
 {% end %}
 </table>

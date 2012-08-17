@@ -6,20 +6,22 @@
 
 $this->require_admin ();
 
+$redir = isset ($_GET['redirect']) ? $_GET['redirect'] : '/comments/admin';
+
 if (! isset ($_GET['id']) || ! is_numeric ($_GET['status'])) {
 	$this->add_notification (__ ('An error occurred.'));
-	$this->redirect ('/comments/admin');
+	$this->redirect ($redir);
 }
 
 if (! isset ($_GET['status']) || ! is_numeric ($_GET['status'])) {
 	$this->add_notification (__ ('An error occurred.'));
-	$this->redirect ('/comments/admin');
+	$this->redirect ($redir);
 }
 
 $c = new Comment ($_GET['id']);
 if ($c->error) {
 	$this->add_notification (__ ('An error occurred.'));
-	$this->redirect ('/comments/admin');
+	$this->redirect ($redir);
 }
 
 $c->status = $_GET['status'];
@@ -29,6 +31,6 @@ if ($_GET['status'] == 1) {
 } else {
 	$this->add_notification (__ ('Comment rejected.'));
 }
-$this->redirect ('/comments/admin');
+$this->redirect ($redir);
 
 ?>
