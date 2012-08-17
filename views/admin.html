@@ -1,0 +1,43 @@
+{! admin/util/dates !}
+
+{% if count ($data->moderate) > 0 %}
+	<h5>{"In moderation:"}</h5>
+	<p>
+	<table width="100%">
+		<tr>
+			<th width="20%">{"User"}</th>
+			<th width="20%">{"Date/time"}</th>
+			<th width="40%">{"Comment"}</th>
+			<th width="20%">&nbsp;</th>
+		</tr>
+	{% foreach moderate %}
+		<tr>
+			<td valign="top">{{ loop_value->name }}</td>
+			<td valign="top">{{ loop_value->ts|I18n::short_date_time }}</td>
+			<td valign="top">{{ loop_value->comment }}</td>
+			<td valign="top" style="text-align: right">
+				<a href="/comments/admin/moderate?id={{ loop_value->id }}&status=1">{"Approve"}</a>
+				|
+				<a href="/comments/admin/moderate?id={{ loop_value->id }}&status=2">{"Reject"}</a>
+			</td>
+		</tr>
+	{% end %}
+	</table>
+	</p>
+	<h5>{"Conversations:"}</h5>
+{% end %}
+
+<p>
+<table width="100%">
+	<tr>
+		<th width="75%">{"Conversation identifier"}</th>
+		<th width="25%" style="text-align: center">{"Comments"}</th>
+	</tr>
+{% foreach conversations %}
+	<tr>
+		<td>{{ loop_value->identifier }}</td>
+		<td style="text-align: center"><a href="/comments/admin/list?identifier={{ loop_value->identifier|urlencode }}">{{ loop_value->total }}</a></td>
+	</tr>
+{% end %}
+</table>
+</p>

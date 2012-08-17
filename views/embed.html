@@ -1,0 +1,112 @@
+<div class="comments" id="comments-{{identifier|md5}}">
+<div id="comments-list-{{identifier|md5}}">
+
+{% if count === 0 %}
+	<p id="comments-none-{{identifier|md5}}">{"No comments."}</p>
+{% else %}
+	{% foreach comments %}
+	<div class="comment">
+		<div>
+			<span class="comment-user" data-user="{{loop_value->user}}" title="{{loop_value->name}}">{{loop_value->name|strtok (trim (%s), ' ')}}</span>
+			<span class="comment-body">{{loop_value->comment}}</span>
+		</div>
+		<div class="comment-info"><span class="humane" data-date="{{ loop_value->ts|str_replace (' ', 'T', %s) }}Z"></span></div>
+	</div>
+	{% end %}
+{% end %}
+
+</div>
+
+{% if User::require_login () %}
+	<form id="comment-form-{{identifier|md5}}">
+	<p>{"Add a comment:"}<br />
+	<textarea cols="60" rows="6" id="comment-input-{{identifier|md5}}"></textarea><br />
+	<input type="submit" value="{"Post comment"}" />
+	<span class="comment-notice" id="comment-notice-{{identifier|md5}}"></span></p>
+	</form>
+{% else %}
+	<p><a href="/user/login?redirect={{$_SERVER.REQUEST_URI|urlencode}}">{"Please log in to comment."}</a></p>
+{% end %}
+
+</div>
+
+<style>
+.comment {
+	border-bottom: 1px solid #ccc;
+	padding-bottom: 10px;
+	margin-bottom: 10px;
+}
+.comment-info {
+	color: #888;
+	font-size: 0.9em;
+}
+.comment-user {
+	color: #444;
+	font-weight: bold;
+}
+.comment-notice {
+	font-style: italic;
+	color: #888;
+}
+</style>
+
+<script>
+$(function () {
+	// update date values
+	$.update_dates = function () {
+		$('.humane').each (function () {
+			$(this).html (humane_date ($(this).data ('date')));
+		});
+	};
+
+	// set dates to auto-update
+	setInterval ($.update_dates, 60000);
+	$.update_dates ();
+
+	// handle comment add form submissions
+	$('#comment-form-{{identifier|md5}}').submit (function (e) {
+		e.preventDefault ();
+
+		var identifier = '{{identifier}}';
+		var comment = $('#comment-input-{{identifier|md5}}').val ();
+
+		$.post (
+			'/comments/api/add',
+			{identifier: identifier, comment: comment},
+			function (res) {
+				if (! res.success) {
+					// error, show message
+					$('#comment-notice-{{identifier|md5}}')
+						.html ('{"An unknown error occurred."}')
+						.fadeIn (250)
+						.delay (2000)
+						.fadeOut (250);
+
+				} else if (res.data.status === 1) {
+					// approved, show on page
+					$('#comment-input-{{identifier|md5}}').val ('');
+					$('#comments-none-{{identifier|md5}}').hide ();
+					$('#comments-list-{{identifier|md5}}').append (res.data.output);
+
+					$('#comment-notice-{{identifier|md5}}')
+						.html ('{"Your comment has been posted."}')
+						.fadeIn (250)
+						.delay (2000)
+						.fadeOut (250);
+
+					$.update_dates ();
+
+				} else {
+					// moderated, show message
+					$('#comment-input-{{identifier|md5}}').val ('');
+					$('#comment-notice-{{identifier|md5}}')
+						.html ('{"Your comment is in moderation and should appear shortly."}')
+						.fadeIn (250)
+						.delay (2000)
+						.fadeOut (250);
+				}
+			}
+		);
+	});
+});
+</script>
