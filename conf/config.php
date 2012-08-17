@@ -16,11 +16,11 @@ moderator_email = ""
 ; The list of statuses for comments. Stored in the
 ; database as integers where:
 ;
-; 0  = Pending
-; 1  = Approved
-; 2+ = Not approved
+; 0 = Pending
+; 1 = Approved
+; 2 = Rejected
 
-status_list = "Pending, Approved, Rejected, Spam"
+status_list = "Pending, Approved, Rejected"
 
 [Admin]
 
