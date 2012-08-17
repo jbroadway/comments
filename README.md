@@ -13,3 +13,5 @@ To embed comments into a view template, simply include the following:
 
 If no identifier is provided, it will use the current page URL as the identifier for
 all comments made on that page.
+
+To configure moderation options, edit the file `apps/comments/conf/config.php`.
