@@ -6,7 +6,9 @@
 
 $page->add_script ('/apps/comments/js/humane.js');
 
-$i = isset ($data['identifier']) ? $data['identifier'] : $_SERVER['REQUEST_URI'];
+$i = (isset ($data['identifier']) && ! empty ($data['identifier']))
+	? $data['identifier']
+	: $_SERVER['REQUEST_URI'];
 
 $comments = Comment::by_identifier ($i);
 
