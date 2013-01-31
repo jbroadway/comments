@@ -10,13 +10,13 @@ class Comment extends Model {
 	public static function by_identifier ($i, $status = 1) {
 		return DB::fetch (
 			'select
-				comments.*, user.name
+				comments.*, #prefix#user.name
 			from
-				comments, user
+				comments, #prefix#user
 			where
 				comments.identifier = ? and
 				comments.status = ? and
-				comments.user = user.id
+				comments.user = #prefix#user.id
 			order by
 				comments.ts asc',
 			$i,
@@ -46,12 +46,12 @@ class Comment extends Model {
 	public static function in_moderation () {
 		return DB::fetch (
 			'select
-				comments.*, user.name
+				comments.*, #prefix#user.name
 			from
-				comments, user
+				comments, #prefix#user
 			where
 				comments.status = 0 and
-				comments.user = user.id
+				comments.user = #prefix#user.id
 			order by
 				comments.ts asc'
 		);
