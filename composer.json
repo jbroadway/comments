@@ -4,6 +4,7 @@
     "description": "A reusable, embeddable comments component for the Elefant CMS",
     "keywords": ["comments", "discussion", "elefant", "cms", "app"],
     "license": "MIT",
+    "version": "1.0.0",
 	"authors": [
 		{
 			"name": "Johnny Broadway",
