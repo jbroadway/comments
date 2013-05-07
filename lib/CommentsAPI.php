@@ -25,8 +25,8 @@ class CommentsAPI extends Restful {
 			return $this->error (__ ('Invalid or missing value: identifier.'));
 		}
 
-		// if moderation is on, mark as pending		
-		$status = Controller::$appconf['comments']['Comments']['moderation'] ? 0 : 1;
+		// if moderation is on, mark as pending
+		$status = Appconf::get ('comments','Comments','moderation') ? 0 : 1;
 
 		$c = new Comment (array (
 			'identifier' => $_POST['identifier'],
@@ -42,7 +42,7 @@ class CommentsAPI extends Restful {
 
 		if ($status === 0) {
 			Mailer::send (array (
-				'to' => Controller::$appconf['comments']['Comments']['moderator_email'],
+				'to' => Appconf::get ('comments','Comments','moderator_email'),
 				'subject' => __ ('Comment posted, moderation required'),
 				'text' => __ ('The following comment has been posted to your site:')
 					. "\n\n"
