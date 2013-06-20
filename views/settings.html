@@ -1,0 +1,23 @@
+<div class="form">
+<form method="post" id="{{_form}}">
+
+<p>{"Moderator email"}:<br />
+<input type="text" name="moderator_email" size="30" value="{{ moderator_email|quotes }}" />
+<span class="notice" id="moderator_email-notice">{"Please enter a valid email address."}</span>
+</p>
+
+<p>{"Moderation"}:<br />
+<select name="moderation">
+	<option value="no"{% if ! moderation %} selected{% end %}>{"Off"}</option>
+	<option value="yes"{% if moderation %} selected{% end %}>{"On"}</option>
+</select>
+</p>
+
+<p>
+	<input type="submit" value="{"Save Settings"}" />
+	&nbsp;
+	<a href="/comments/admin" onclick="return confirm ('{"Are you sure you want to cancel and lose any changes?"}')">{"Cancel"}</a>
+</p>
+
+</form>
+</div>
