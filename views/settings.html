@@ -1,17 +1,13 @@
 <div class="form">
 <form method="post" id="{{_form}}">
 
-<p>{"Moderator email"}:<br />
-<input type="text" name="moderator_email" size="30" value="{{ moderator_email|quotes }}" />
-<span class="notice" id="moderator_email-notice">{"Please enter a valid email address."}</span>
+<p>
+<label><input type="checkbox" name="moderation" value="yes"{% if moderation %} checked{% end %} /> {"Enable comment moderation"}</label>
 </p>
 
-<p>{"Moderation"}:<br />
-<select name="moderation">
-	<option value="no"{% if ! moderation %} selected{% end %}>{"Off"}</option>
-	<option value="yes"{% if moderation %} selected{% end %}>{"On"}</option>
-</select>
-</p>
+<p>{"Moderator's email address"}:<br />
+<input type="text" name="moderator_email" size="40" value="{{ moderator_email|quotes }}" />
+<span class="notice" id="moderator_email-notice">{"Please enter a valid email address."}</span></p>
 
 <p>
 	<input type="submit" value="{"Save Settings"}" />
