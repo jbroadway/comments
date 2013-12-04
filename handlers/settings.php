@@ -17,12 +17,12 @@ $form->data = array (
 );
 
 echo $form->handle (function ($form) use ($page, $tpl) {
-	$settings = array (
+	$settings = Appconf::merge ('comments', array (
 		'Comments' => array (
 			'moderation' => ($_POST['moderation'] === 'yes') ? true : false,
 			'moderator_email' => $_POST['moderator_email']
 		)
-	);
+	));
 
 	if (! Ini::write ($settings, 'conf/app.comments.' . ELEFANT_ENV . '.php')) {
 		printf ('<p>%s</p>', __ ('Unable to save changes. Check your folder permissions and try again.'));
