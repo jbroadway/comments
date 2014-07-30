@@ -25,8 +25,8 @@ class CommentsAPI extends Restful {
 			return $this->error (__ ('Invalid or missing value: identifier.'));
 		}
 
-		// if moderation is on, mark as pending
-		$status = Appconf::comments ('Comments','moderation') ? 0 : 1;
+		// if moderation is on, mark as pending		
+		$status = Appconf::comments ('Comments', 'moderation') ? 0 : 1;
 
 		$c = new Comment (array (
 			'identifier' => $_POST['identifier'],
@@ -40,34 +40,28 @@ class CommentsAPI extends Restful {
 			return $this->error ($c->error);
 		}
 
-		$o = $c->orig ();
-		$o->name = User::val ('name');
-		$o->date = str_replace (' ', 'T', $o->ts) . 'Z';
-
-		$this->controller->hook ('comments/add', $o);
-
 		if ($status === 0) {
-			try {
-				Mailer::send (array (
-					'to' => Appconf::comments ('Comments', 'moderator_email'),
-					'subject' => __ ('Comment posted, moderation required'),
-					'text' => __ ('The following comment has been posted to your site:')
-						. "\n\n"
-						. User::val ('name') . ': ' . Template::sanitize ($_POST['comment'])
-						. "\n\n"
-						. __ ('To approve or reject this comment, log in here:')
-						. "\n\n"
-						. 'http://' . $_SERVER['HTTP_HOST'] . '/comments/admin'
-				));
-			} catch (Exception $e) {
-				// moderator notification email failed
-			}
+			Mailer::send (array (
+				'to' => Appconf::comments ('Comments', 'moderator_email'),
+				'subject' => __ ('Comment posted, moderation required'),
+				'text' => __ ('The following comment has been posted to your site:')
+					. "\n\n"
+					. User::val ('name') . ': ' . Template::sanitize ($_POST['comment'])
+					. "\n\n"
+					. __ ('To approve or reject this comment, log in here:')
+					. "\n\n"
+					. 'http://' . $_SERVER['HTTP_HOST'] . '/comments/admin'
+			));
 
 			return array (
 				'msg' => __ ('Comment added.'),
 				'status' => $status
 			);
 		}
+
+		$o = $c->orig ();
+		$o->name = User::val ('name');
+		$o->date = str_replace (' ', 'T', $o->ts) . 'Z';
 
 		return array (
 			'msg' => __ ('Comment added.'),
