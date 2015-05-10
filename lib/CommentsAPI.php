@@ -55,6 +55,10 @@ class CommentsAPI extends Restful {
 						. "\n\n"
 						. User::val ('name') . ': ' . Template::sanitize ($_POST['comment'])
 						. "\n\n"
+						. __ ('The comment was made on this page:')
+						. "\n\n"
+						. 'http://' . $_SERVER['HTTP_HOST'] . $c->identifier
+						. "\n\n"
 						. __ ('To approve or reject this comment, log in here:')
 						. "\n\n"
 						. 'http://' . $_SERVER['HTTP_HOST'] . '/comments/admin'
