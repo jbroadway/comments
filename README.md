@@ -8,7 +8,14 @@ admin toolbar.
 To embed comments into a view template, simply include the following:
 
 ```html
-{! comments/embed?identifier=unique-identifier-here !}
+{! comments/embed !}
+```
+
+To specify a different page identifier, which should be in the form of a link,
+add the `identifier` parameter:
+
+```html
+{! comments/embed?identifier=/unique-page-identifier !}
 ```
 
 If no identifier is provided, it will use the current page URL as the identifier for

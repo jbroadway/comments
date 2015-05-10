@@ -7,14 +7,22 @@
 	<p>
 	<table width="100%">
 		<tr>
-			<th width="20%">{"User"}</th>
-			<th width="20%">{"Date/time"}</th>
-			<th width="40%">{"Comment"}</th>
-			<th width="20%">&nbsp;</th>
+			<th width="24%">{"Link"}</th>
+			<th width="16%">{"User"}</th>
+			<th width="16%">{"Date/time"}</th>
+			<th width="30%">{"Comment"}</th>
+			<th width="14%">&nbsp;</th>
 		</tr>
 	{% foreach moderate %}
 		<tr>
-			<td valign="top">{{ loop_value->name }}</td>
+			<td valign="top">
+				{% if strpos ($data->loop_value->identifier, '/') === 0 %}
+					<a href="{{ loop_value->identifier }}#comments" target="_blank">{{ loop_value->identifier }}</a>
+				{% else %}
+					{{ loop_value->identifier }}
+				{% end %}
+			</td>
+			<td valign="top"><a href="/user/details?id={{ loop_value->user }}" target="_blank">{{ loop_value->name }}</a></td>
 			<td valign="top">{{ loop_value->ts|I18n::short_date_time }}</td>
 			<td valign="top">{{ loop_value->comment }}</td>
 			<td valign="top" style="text-align: right">
@@ -32,13 +40,19 @@
 <p>
 <table width="100%">
 	<tr>
-		<th width="75%">{"Conversation identifier"}</th>
-		<th width="25%" style="text-align: center">{"Comments"}</th>
+		<th width="75%">{"Link"}</th>
+		<th width="25%" style="text-align: right">{"Comments"}</th>
 	</tr>
 {% foreach conversations %}
 	<tr>
-		<td>{{ loop_value->identifier }}</td>
-		<td style="text-align: center"><a href="/comments/admin/list?identifier={{ loop_value->identifier|urlencode }}">{{ loop_value->total }}</a></td>
+		<td>
+			{% if strpos ($data->loop_value->identifier, '/') === 0 %}
+				<a href="{{ loop_value->identifier }}#comments" target="_blank">{{ loop_value->identifier }}</a>
+			{% else %}
+				{{ loop_value->identifier }}
+			{% end %}
+		</td>
+		<td style="text-align: right"><a href="/comments/admin/list?identifier={{ loop_value->identifier|urlencode }}">{{ loop_value->total }} {"comments"}</a></td>
 	</tr>
 {% end %}
 </table>

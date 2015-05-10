@@ -36,7 +36,7 @@
 	</tr>
 {% foreach comments %}
 	<tr>
-		<td valign="top">{{ loop_value->name }}</td>
+		<td valign="top"><a href="/user/details?id={{ loop_value->user }}" target="_blank">{{ loop_value->name }}</a></td>
 		<td valign="top">{{ loop_value->ts|I18n::short_date_time }}</td>
 		<td valign="top">{{ loop_value->comment }}</td>
 		<td valign="top" style="text-align: right">
