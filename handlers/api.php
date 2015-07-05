@@ -4,6 +4,6 @@
  * RESTful API endpoint for the app.
  */
 
-$this->restful (new CommentsAPI);
+$this->restful (new comments\API);
 
 ?>
