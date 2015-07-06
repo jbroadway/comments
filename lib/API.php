@@ -2,7 +2,15 @@
 
 namespace comments;
 
-class API extends Restful {
+use Appconf;
+use Comment;
+use Exception;
+use Mailer;
+use Template;
+use User;
+use View;
+
+class API extends \Restful {
 	/**
 	 * Adds a comment when a valid user posts to /comments/api/add
 	 * with the following parameters:
