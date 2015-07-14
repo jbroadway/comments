@@ -1,4 +1,4 @@
-create table comments (
+create table #prefix#comments (
 	id int unsigned not null auto_increment primary key,
 	identifier char(72) not null,
 	user int not null,
