@@ -14,5 +14,3 @@ echo $tpl->render ('comments/admin', array (
 	'moderate' => Comment::in_moderation (),
 	'conversations' => Comment::identifiers ()
 ));
-
-?>

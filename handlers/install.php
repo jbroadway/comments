@@ -43,5 +43,3 @@ if ($error) {
 echo '<p>Done.</p>';
 
 $this->mark_installed ('comments', $appconf['Admin']['version']);
-
-?>

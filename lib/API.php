@@ -90,5 +90,3 @@ class API extends \Restful {
 		);
 	}
 }
-
-?>

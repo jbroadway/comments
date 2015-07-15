@@ -39,5 +39,3 @@ $this->lang_hash['fr'] = array_merge (
 		'Must be logged in to comment.' => 'Vous devez être connecté pour commenter.'
 	)
 );
-
-?>

@@ -5,5 +5,3 @@
  */
 
 $this->restful (new comments\API);
-
-?>

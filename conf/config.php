@@ -30,4 +30,4 @@ install = comments/install
 upgrade = comments/upgrade
 version = 0.9.2-beta
 
-; */ ?>
+; */

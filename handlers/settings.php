@@ -32,5 +32,3 @@ echo $form->handle (function ($form) use ($page, $tpl) {
 	$form->controller->add_notification (__ ('Settings saved.'));
 	$form->controller->redirect ('/comments/admin');
 });
-
-?>

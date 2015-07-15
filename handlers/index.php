@@ -9,5 +9,3 @@ if (! User::require_admin ()) {
 } else {
 	$this->redirect ('/comments/admin');
 }
-
-?>

@@ -24,5 +24,3 @@ echo $tpl->render ('comments/embed', array (
 	'count' => count ($comments),
 	'identifier' => $i
 ));
-
-?>

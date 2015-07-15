@@ -74,5 +74,3 @@ class Comment extends Model {
 		);
 	}
 }
-
-?>

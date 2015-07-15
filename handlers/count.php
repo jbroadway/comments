@@ -7,5 +7,3 @@
 $i = isset ($data['identifier']) ? $data['identifier'] : $_SERVER['REQUEST_URI'];
 
 echo Comment::total ($i);
-
-?>
