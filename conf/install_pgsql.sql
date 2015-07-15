@@ -6,5 +6,5 @@ create table #prefix#comments (
 	ts timestamp not null,
 	"comment" text not null
 );
-create index identifier on comments (identifier, status, ts);
-create index "user" on comments ("user", status, ts);
+create index identifier on #prefix#comments (identifier, status, ts);
+create index "user" on #prefix#comments ("user", status, ts);

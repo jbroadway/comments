@@ -7,5 +7,5 @@ create table #prefix#comments (
 	comment text not null
 );
 
-create index comments_identifier on comments (identifier, status, ts);
-create index comments_user on comments (user, status, ts);
+create index #prefix#comments_identifier on #prefix#comments (identifier, status, ts);
+create index #prefix#comments_user on #prefix#comments (user, status, ts);
