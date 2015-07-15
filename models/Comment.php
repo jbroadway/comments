@@ -1,7 +1,7 @@
 <?php
 
 class Comment extends Model {
-	public $table = 'comments';
+	public $table = '#prefix#comments';
 
 	/**
 	 * Get comments by identifier and status. Also includes
@@ -10,15 +10,15 @@ class Comment extends Model {
 	public static function by_identifier ($i, $status = 1) {
 		return DB::fetch (
 			'select
-				comments.*, #prefix#user.name
+				#prefix#comments.*, #prefix#user.name
 			from
-				comments, #prefix#user
+				#prefix#comments, #prefix#user
 			where
-				comments.identifier = ? and
-				comments.status = ? and
-				comments.user = #prefix#user.id
+				#prefix#comments.identifier = ? and
+				#prefix#comments.status = ? and
+				#prefix#comments.user = #prefix#user.id
 			order by
-				comments.ts asc',
+				#prefix#comments.ts asc',
 			$i,
 			$status
 		);
@@ -32,10 +32,10 @@ class Comment extends Model {
 			'select
 				count(*)
 			from
-				comments
+				#prefix#comments
 			where
-				comments.identifier = ? and
-				comments.status = 1',
+				#prefix#comments.identifier = ? and
+				#prefix#comments.status = 1',
 			$i
 		);
 	}
@@ -46,14 +46,14 @@ class Comment extends Model {
 	public static function in_moderation () {
 		return DB::fetch (
 			'select
-				comments.*, #prefix#user.name
+				#prefix#comments.*, #prefix#user.name
 			from
-				comments, #prefix#user
+				#prefix#comments, #prefix#user
 			where
-				comments.status = 0 and
-				comments.user = #prefix#user.id
+				#prefix#comments.status = 0 and
+				#prefix#comments.user = #prefix#user.id
 			order by
-				comments.ts asc'
+				#prefix#comments.ts asc'
 		);
 	}
 
@@ -66,7 +66,7 @@ class Comment extends Model {
 				identifier,
 				count(*) as total
 			from
-				comments
+				#prefix#comments
 			group by
 				identifier
 			order by

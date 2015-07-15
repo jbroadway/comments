@@ -28,6 +28,6 @@ handler = comments/admin
 name = Comments
 install = comments/install
 upgrade = comments/upgrade
-version = 0.9-beta
+version = 0.9.2-beta
 
 ; */ ?>
