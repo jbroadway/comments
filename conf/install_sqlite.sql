@@ -1,6 +1,6 @@
 create table #prefix#comments (
 	id integer primary key,
-	identifier char(72) not null,
+	identifier char(255) not null,
 	user int not null,
 	status int not null,
 	ts datetime not null,

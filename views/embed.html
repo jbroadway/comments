@@ -8,7 +8,7 @@
 	{% foreach comments %}
 	<div class="comment">
 		<div>
-			<span class="comment-user" data-user="{{loop_value->user}}" title="{{loop_value->name}}">{{loop_value->name|strtok (trim (%s), ' ')}}</span>
+			<span class="comment-user" data-user="{{loop_value->user}}" title="{{loop_value->name}}">{{loop_value->name|comments\Filter::firstname}}</span>
 			<span class="comment-body">{{loop_value->comment}}</span>
 		</div>
 		<div class="comment-info"><span class="humane" data-date="{{ loop_value->ts|str_replace (' ', 'T', %s) }}Z"></span></div>

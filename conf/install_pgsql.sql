@@ -1,6 +1,6 @@
 create table #prefix#comments (
 	id serial not null primary key,
-	identifier character(72) not null,
+	identifier character(255) not null,
 	"user" integer not null,
 	status integer not null,
 	ts timestamp not null,
